@@ -1,0 +1,41 @@
+{
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Batman",
+      "alterEgo": "Bruce Wayne"
+    },
+    {
+      "id": 2,
+      "name": "Superman",
+      "alterEgo": "Clark Kent"
+    },
+    {
+      "id": 3,
+      "name": "Wonder Woman",
+      "alterEgo": "Princess Diana"
+    }
+  ],
+  "friends": [
+    {
+      "id": 1,
+      "name": "Serena Williams"
+    },
+    {
+      "id": 2,
+      "name": "Maria Sharapova"
+    },
+    {
+      "id": 3,
+      "name": "Naomi Osaka"
+    },
+    {
+      "id": 4,
+      "name": "Roger Federer"
+    },
+    {
+      "id": 5,
+      "name": "Rafael Nadal"
+    }
+  ]
+}
