@@ -2,7 +2,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 import { MainLayout } from '../../src/components/layouts/MainLayout';
 
-import styles from '../../styles/Common.module.css';
+// import styles from '../../styles/Common.module.css';
 
 const NotificationsPage: NextPage = () => {
   return (
