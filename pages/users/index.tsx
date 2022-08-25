@@ -4,7 +4,7 @@ import { MainLayout } from '../../src/components/layouts';
 import { usersApi } from '../../src/api';
 import { User } from '../../src/interfaces';
 
-import styles from '../../styles/Users.module.css';
+// import styles from '../../styles/Users.module.css';
 
 type Props = {
   users: User[];
@@ -19,10 +19,12 @@ const UsersPage: NextPage<Props> = ({ users }) => {
       description="Users Page description"
       content={'Users Page'}
     >
-      <div className={styles.containerUsers}>
+      {/* <div className={styles.containerUsers}> */}
+      <div>
         <h1>getStaticProps (at build time)</h1>
         <p>In prod it will run once at build time.</p>
-        <ul className={styles.listUsers}>
+        <ul>
+          {/* <ul className={styles.listUsers}> */}
           {users?.map((user) => (
             <div key={user.id}>
               <Link href={`/users/${user.id}`}>

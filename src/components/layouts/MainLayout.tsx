@@ -24,8 +24,6 @@ export const MainLayout: FC<Props> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
-
       <main className={styles.main}>{children}</main>
     </div>
   );

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 
 import { Container, Typography, Box } from '@mui/material';
 
-import Link from '../src/components/Link';
+import Link from '../src/components/ui/Link';
 import { useRouter } from 'next/router';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { MainLayout } from '../src/components/layouts';
@@ -38,9 +38,6 @@ const HomePage: NextPage = () => {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h1" component="h1" gutterBottom>
-            Index Page
-          </Typography>
           <Typography variant="h4" component="h1" gutterBottom>
             <FormattedMessage
               id="page.home.title"

@@ -3,10 +3,13 @@ import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AddReactionIcon from '@mui/icons-material/AddReaction';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import GroupIcon from '@mui/icons-material/Group';
 import { useState } from 'react';
-import theme from '../theme';
+import theme from '../../theme';
 import Link from './Link';
-import Home from '../../pages/index';
+import Home from '../../../pages/index';
 
 export const NavbarFixed = () => {
   const [value, setValue] = useState(0);
@@ -35,13 +38,33 @@ export const NavbarFixed = () => {
           component={Link}
           icon={<HomeIcon />}
         />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+        <BottomNavigationAction
+          label="Users"
+          value="/users"
+          href="/users"
+          component={Link}
+          icon={<GroupIcon />}
+        />
         <BottomNavigationAction
           label="Location"
           value="/location"
           href="/location"
           component={Link}
           icon={<LocationOnIcon />}
+        />
+        <BottomNavigationAction
+          label="Notifications"
+          value="/users/notifications"
+          href="/users/notifications"
+          component={Link}
+          icon={<NotificationsIcon />}
+        />
+        <BottomNavigationAction
+          label="Friends"
+          value="/friends"
+          href="/friends"
+          component={Link}
+          icon={<AddReactionIcon />}
         />
       </BottomNavigation>
     </Paper>

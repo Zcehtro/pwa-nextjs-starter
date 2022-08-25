@@ -12,9 +12,11 @@ const NotificationsPage: NextPage = () => {
         description="About Page description"
         content={'About Page'}
       >
+        <h1>Notifications</h1>
+        <p>List Notifications</p>
+        {/* >
         <h1 className={styles.title}>Notifications</h1>
-
-        <p className={styles.description}>List Notifications</p>
+        <p className={styles.description}>List Notifications</p> */}
       </MainLayout>
     </>
   );

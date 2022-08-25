@@ -14,7 +14,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import createEmotionCache from '../src/createEmotionCache';
-import { NavbarFixed } from '../src/components/NavbarFixed';
+import { NavbarFixed } from '../src/components/ui/NavbarFixed';
 import { AccountMenu } from '../src/components/AccountMenu';
 
 import theme from '../src/theme';
@@ -56,7 +56,7 @@ export default function MyApp(props: MyAppProps) {
             <AccountMenu />
             <Component {...pageProps} />
             <NavbarFixed />
-            <ReactQueryDevtools initialIsOpen={false} />
+            <ReactQueryDevtools initialIsOpen={false} position={'top-left'} />
           </ThemeProvider>
         </CacheProvider>
       </QueryClientProvider>

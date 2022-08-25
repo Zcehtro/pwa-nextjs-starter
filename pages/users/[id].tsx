@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { MainLayout } from '../../src/components/layouts';
 
-import styles from '../../styles/Users.module.css';
+// import styles from '../../styles/Users.module.css';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { usersApi } from '../../src/api';
 import { User } from '../../src/interfaces';
@@ -21,7 +21,8 @@ const UserPage: NextPage<Props> = ({ user }) => {
       description="User Page description"
       content={'User Page'}
     >
-      <div className={styles.containerUsers}>
+      <div>
+        {/* <div className={styles.containerUsers}> */}
         <h1>Hello from User: {user.name}</h1>
       </div>
     </MainLayout>
