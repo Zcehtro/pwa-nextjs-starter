@@ -1,3 +1,7 @@
+import { useState } from 'react';
+
+import Link from './Link';
+
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 
 import HomeIcon from '@mui/icons-material/Home';
@@ -6,9 +10,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import GroupIcon from '@mui/icons-material/Group';
-import { useState } from 'react';
+import PaidIcon from '@mui/icons-material/Paid';
+
 import theme from '../../theme';
-import Link from './Link';
 import Home from '../../../pages/index';
 
 export const NavbarFixed = () => {
@@ -46,11 +50,11 @@ export const NavbarFixed = () => {
           icon={<GroupIcon />}
         />
         <BottomNavigationAction
-          label="Location"
-          value="/location"
-          href="/location"
+          label="Pay"
+          value="/transactions"
+          href="/transactions"
           component={Link}
-          icon={<LocationOnIcon />}
+          icon={<PaidIcon />}
         />
         <BottomNavigationAction
           label="Notifications"

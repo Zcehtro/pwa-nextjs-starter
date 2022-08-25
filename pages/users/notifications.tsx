@@ -12,8 +12,8 @@ const NotificationsPage: NextPage = () => {
         description="About Page description"
         content={'About Page'}
       >
-        <h1>Notifications</h1>
-        <p>List Notifications</p>
+        <h1>Notifications ...in progress</h1>
+        <p>Server Side Rendering con React Query</p>
         {/* >
         <h1 className={styles.title}>Notifications</h1>
         <p className={styles.description}>List Notifications</p> */}
