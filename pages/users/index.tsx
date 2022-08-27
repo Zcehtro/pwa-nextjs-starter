@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   return {
     props: { users },
-    revalidate: 86400, // 60 * 60 * 24
+    revalidate: 86400 // 60 * 60 * 24
   };
 };
 
