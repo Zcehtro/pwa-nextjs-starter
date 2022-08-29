@@ -1,3 +1,4 @@
+// TODO majo: Delete component if not used by November 2022
 import { FC } from 'react';
 import { ActiveLink } from './ActiveLink';
 

@@ -21,7 +21,6 @@ import theme from '../src/theme';
 
 import en from '../src/lang/en.json';
 import es from '../src/lang/es.json';
-import { Navbar } from '../src/components/ui';
 
 const messages = {
   es,
