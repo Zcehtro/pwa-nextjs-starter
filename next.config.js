@@ -11,10 +11,10 @@ module.exports = withPWA({
   swcMinify: true,
   i18n: {
     locales: ['es', 'en'],
-    defaultLocale: 'es',
+    defaultLocale: 'es'
   },
   pwa: {
     dest: 'public',
-    runtimeCaching,
-  },
+    runtimeCaching
+  }
 });
