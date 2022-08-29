@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { MainLayout } from '../../src/components/layouts';
 
-// import styles from '../../styles/Users.module.css';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { usersApi } from '../../src/api';
 import { User } from '../../src/interfaces';
@@ -22,7 +21,6 @@ const UserPage: NextPage<Props> = ({ user }) => {
       content={'User Page'}
     >
       <div>
-        {/* <div className={styles.containerUsers}> */}
         <h1>Hello from User: {user.name}</h1>
       </div>
     </MainLayout>
@@ -34,10 +32,10 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   return {
     paths: users3.map((id) => ({
-      params: { id },
+      params: { id }
     })),
     // fallback: false, // return 404 page
-    fallback: 'blocking', // pass to execute getStaticProps to search if the user exist.
+    fallback: 'blocking' // pass to execute getStaticProps to search if the user exist.
   };
 };
 
@@ -49,16 +47,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
       props: {
-        user: data,
+        user: data
       },
-      revalidate: 86400, // 60 * 60 * 24 (every 24hrs)
+      revalidate: 86400 // 60 * 60 * 24 (every 24hrs)
     };
   } catch (error) {
     return {
       redirect: {
         destination: '/',
-        permanent: false,
-      },
+        permanent: false
+      }
     };
   }
 };

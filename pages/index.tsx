@@ -1,11 +1,12 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Container, Typography, Box } from '@mui/material';
 
-import Link from '../src/components/ui/Link';
-import { useRouter } from 'next/router';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { MainLayout } from '../src/components/layouts';
+
+import Link from '../src/components/ui/Link';
 
 const HomePage: NextPage = () => {
   const { locales } = useRouter();
@@ -14,7 +15,7 @@ const HomePage: NextPage = () => {
 
   const title = intl.formatMessage({ id: 'page.home.head.title' });
   const description = intl.formatMessage({
-    id: 'page.home.head.meta.description',
+    id: 'page.home.head.meta.description'
   });
 
   return (
@@ -35,7 +36,7 @@ const HomePage: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'center'
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>

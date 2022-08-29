@@ -1,10 +1,10 @@
 import { CSSProperties, FC } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Link from './Link';
 
 const style: CSSProperties = {
   color: '#0070f3',
-  textDecoration: 'underline',
+  textDecoration: 'underline'
 };
 
 interface Props {
@@ -18,10 +18,8 @@ export const ActiveLink: FC<Props> = ({ text, href }) => {
   const active = router.asPath === href;
 
   return (
-    <Link href={href}>
-      <a style={active ? style : undefined}>
-        <span>{text}</span>
-      </a>
+    <Link href={href} style={active ? style : undefined}>
+      <span>{text}</span>
     </Link>
   );
 };

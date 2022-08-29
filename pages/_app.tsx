@@ -21,10 +21,11 @@ import theme from '../src/theme';
 
 import en from '../src/lang/en.json';
 import es from '../src/lang/es.json';
+import { Navbar } from '../src/components/ui';
 
 const messages = {
   es,
-  en,
+  en
 };
 
 // Client-side cache, shared for the whole session of the user in the browser.

@@ -32,11 +32,9 @@ const FriendsPage: NextPage<Props> = ({ usersList }) => {
         content={'Friends Page'}
       >
         <div>
-          {/* <div className={styles.containerUsers}> */}
           <h1>Server side rendering (getServerSideProps sin React Query)</h1>
           <p>In prod it will run on every request to the server.</p>
           <ul>
-            {/* <ul className={styles.listUsers}> */}
             {users?.map((user) => (
               <li key={user?.id}>
                 <a href={user?.website} target="_blank" rel="noreferrer">

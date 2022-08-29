@@ -1,5 +1,4 @@
 import type { NextPage, GetStaticProps } from 'next';
-import Link from 'next/link';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -7,8 +6,8 @@ import { USERS_KEY } from '../src/constants';
 import { MainLayout } from '../src/components/layouts';
 import { User } from '../src/interfaces';
 
-import styles from '../styles/Users.module.css';
 import { usersApi } from '../src/api';
+import Link from '../src/components/ui/Link';
 
 const fetchUsers = async () => {
   const { data } = await usersApi.get<User[]>('/superheroes');
@@ -18,7 +17,6 @@ const fetchUsers = async () => {
 
 // Example using React-Query
 // Now -> we are calling React query on client side
-// TODO -> call React Query on getStaticProps ??? will it work? what if the database change?
 const Transactions: NextPage = () => {
   const onSuccess = (data: User[]) => {
     // Perform side effect after data fetching
@@ -36,11 +34,11 @@ const Transactions: NextPage = () => {
     isError,
     error,
     refetch,
-    isFetching,
+    isFetching
   } = useQuery([USERS_KEY], fetchUsers, {
     staleTime: 30000,
     onSuccess,
-    onError,
+    onError
   });
 
   if (isError) {
@@ -58,26 +56,17 @@ const Transactions: NextPage = () => {
       content={'Transactions Page'}
     >
       <div>
-        {/* <div className={styles.containerUsers}> */}
         <h1>Client Side Rendering with React Query</h1>
         <ul>
-          {/* <ul className={styles.listUsers}> */}
           {users?.map((user) => (
             <div key={user.id}>
               <Link href={`/users/${user.id}`}>
-                <a>
-                  {user.id}-{user.name}
-                </a>
+                {user.id}-{user.name}
               </Link>
             </div>
           ))}
         </ul>
-        <button
-          // className={`${styles.btn} ${styles.btnXs} ${styles.fetchBtn}`}
-          onClick={() => refetch()}
-        >
-          Trigger Refetch - React Query
-        </button>
+        <button onClick={() => refetch()}>Trigger Refetch - React Query</button>
       </div>
     </MainLayout>
   );
