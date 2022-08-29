@@ -4,7 +4,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { IntlProvider } from 'react-intl';
@@ -43,22 +47,24 @@ export default function MyApp(props: MyAppProps) {
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
       <QueryClientProvider client={queryClient}>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            {/* <meta name="viewport" content="initial-scale=1, width=device-width" /> */}
-            <meta
-              name="viewport"
-              content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-            />
-          </Head>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AccountMenu />
-            <Component {...pageProps} />
-            <NavbarFixed />
-            <ReactQueryDevtools initialIsOpen={false} position={'top-left'} />
-          </ThemeProvider>
-        </CacheProvider>
+        <Hydrate state={pageProps.dehydratedState}>
+          <CacheProvider value={emotionCache}>
+            <Head>
+              {/* <meta name="viewport" content="initial-scale=1, width=device-width" /> */}
+              <meta
+                name="viewport"
+                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+              />
+            </Head>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <AccountMenu />
+              <Component {...pageProps} />
+              <NavbarFixed />
+              <ReactQueryDevtools initialIsOpen={false} position={'top-left'} />
+            </ThemeProvider>
+          </CacheProvider>
+        </Hydrate>
       </QueryClientProvider>
     </IntlProvider>
   );
