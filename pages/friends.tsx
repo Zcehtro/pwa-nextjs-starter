@@ -16,12 +16,6 @@ type Props = {
   usersList: Friend[];
 };
 
-const fetchFriends = async () => {
-  const { data } = await usersApi.get<Friend[]>('/friends');
-
-  return data;
-};
-
 // Example: Server Side Rendering -> call getServerSideProps on every request
 const FriendsPage: NextPage<Props> = ({ usersList }) => {
   const [users, setUsers] = useState(usersList);
@@ -55,6 +49,18 @@ const FriendsPage: NextPage<Props> = ({ usersList }) => {
       </MainLayout>
     </>
   );
+};
+
+const fetchFriends = async () => {
+  try {
+    const { data } = await usersApi.get<Friend[]>('/friends');
+
+    return data;
+  } catch (error) {
+    console.log('[DEBUG]', error);
+
+    return null;
+  }
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

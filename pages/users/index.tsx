@@ -41,9 +41,15 @@ const UsersPage: NextPage<Props> = ({ users }) => {
 };
 
 const fetchUsers = async () => {
-  const { data } = await usersApi.get<User[]>('/superheroes');
+  try {
+    const { data } = await usersApi.get<User[]>('/superheroes');
 
-  return data;
+    return data;
+  } catch (error) {
+    console.log('[DEBUG]', error);
+
+    return null;
+  }
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
