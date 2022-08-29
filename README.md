@@ -1,5 +1,17 @@
 # POC: Nextjs + PWA + mui
 
+- React Query - fetching library
+- React Hook Forms - forms library
+- JSON Server for API mock
+- Material UI
+- i18n
+
+### TODO
+
+- Make login functional
+- React Query post example
+- Complete i18n
+
 Clone the repo and run:
 
 ```sh
@@ -26,21 +38,6 @@ Next.js has [a custom Link component](https://nextjs.org/docs/api-reference/next
 The example folder provides adapters for usage with MUI.
 More information [in the documentation](https://mui.com/material-ui/guides/routing/#next-js).
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-Next.js started pack:
-
-- React Query - fetching library
-- React Hook Forms - forms library
-- JSON Server for API mock
-
-### TODO
-
-- Add post example with React Query
-- Make login functional
-
 ## Dependencies
 
 - nvm -v → 0.39.1
@@ -50,16 +47,6 @@ Next.js started pack:
 - npm -v → 8.15.1
 
 - yarn -v → 1.22.17
-
-## Setup
-
-1. Clone repository.
-2. `$ yarn install`
-3. `$ yarn dev`
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
 ## To run JSON server locally (our mock database) - Or use https://my-fake-json-server.herokuapp.com if working
 
@@ -80,7 +67,7 @@ const createUser = () => {
     .post('http://localhost:4000/superheroes', {
       id: 4,
       name: 'The Flash',
-      alterEgo: 'Barry Allen',
+      alterEgo: 'Barry Allen'
     })
     .then((resp) => {
       console.log(resp.data);
@@ -94,7 +81,7 @@ const updateUser = () => {
   axios
     .put('http://localhost:4000/superheroes/4', {
       name: 'Flash',
-      alterEgo: 'Barry Allen',
+      alterEgo: 'Barry Allen'
     })
     .then((resp) => {
       console.log(resp.data);
