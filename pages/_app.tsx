@@ -13,11 +13,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import createEmotionCache from '../src/createEmotionCache';
+import createEmotionCache from '../styles/createEmotionCache';
 import { NavbarFixed } from '../src/components/ui/NavbarFixed';
 import { AccountMenu } from '../src/components/AccountMenu';
 
-import theme from '../src/theme';
+import theme from '../styles/theme';
 
 import en from '../src/lang/en.json';
 import es from '../src/lang/es.json';

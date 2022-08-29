@@ -1,19 +1,16 @@
 import { useState } from 'react';
 
-import Link from './Link';
-
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomeIcon from '@mui/icons-material/Home';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import GroupIcon from '@mui/icons-material/Group';
 import PaidIcon from '@mui/icons-material/Paid';
 
-import theme from '../../theme';
-import Home from '../../../pages/index';
+import Link from './Link';
 
 export const NavbarFixed = () => {
   const [value, setValue] = useState(0);
@@ -24,7 +21,7 @@ export const NavbarFixed = () => {
         position: 'fixed',
         bottom: 0,
         left: 0,
-        right: 0,
+        right: 0
       }}
       elevation={3}
     >

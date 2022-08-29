@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -11,11 +12,12 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import theme from '../theme';
+import theme from '../../styles/theme';
 
 export function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,7 +33,7 @@ export function AccountMenu() {
           textAlign: 'center',
           justifyContent: 'flex-end',
           padding: '0.5rem',
-          background: theme.palette.primary.main,
+          background: theme.palette.primary.main
         }}
       >
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
@@ -65,7 +67,7 @@ export function AccountMenu() {
               width: 32,
               height: 32,
               ml: -0.5,
-              mr: 1,
+              mr: 1
             },
             '&:before': {
               content: '""',
@@ -77,9 +79,9 @@ export function AccountMenu() {
               height: 10,
               bgcolor: 'background.paper',
               transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
+              zIndex: 0
+            }
+          }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
