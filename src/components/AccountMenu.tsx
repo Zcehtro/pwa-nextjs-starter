@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import theme from '../../styles/theme';
+import theme from '../styles/theme';
 
 export function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
