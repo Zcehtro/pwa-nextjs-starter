@@ -52,12 +52,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       revalidate: 86400 // 60 * 60 * 24 (every 24hrs)
     };
   } catch (error) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
-    };
+    console.log('[DEBUG] ', error);
   }
 };
 
