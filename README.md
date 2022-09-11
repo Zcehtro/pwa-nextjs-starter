@@ -1,5 +1,8 @@
 # POC: Nextjs + PWA + mui
 
+https://github.com/MariaVla/pwa-nextjs-starter/pull/1
+https://pwa-nextjs-starter-kvuocxrq2-mariavla.vercel.app/login
+
 - React Query - fetching library
 - React Hook Forms - forms library
 - JSON Server for API mock
