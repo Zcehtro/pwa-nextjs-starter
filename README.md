@@ -14,6 +14,7 @@ https://pwa-nextjs-starter-kvuocxrq2-mariavla.vercel.app/login
 - Make login functional
 - React Query post example
 - Complete i18n
+- WebAuthn not working so far. Needs database?
 
 Clone the repo and run:
 

@@ -23,7 +23,7 @@ import {
 
 import { WebAuthnModal } from './WebAuthnModal';
 
-const BASE_URL = 'http://localhost:8001';
+const BASE_API_URL = 'http://localhost:3000/api';
 
 type Inputs = {
   email: string;
@@ -89,7 +89,9 @@ export const LoginForm: FC = () => {
   // };
 
   const webauthnRegistration = async () => {
-    const resp = await fetch(`${BASE_URL}/generate-registration-options`);
+    const resp = await fetch(
+      `${BASE_API_URL}/registration/generate-registration-options`
+    );
     //Attestation resp
     let attResp;
 
@@ -135,13 +137,16 @@ export const LoginForm: FC = () => {
       return;
     }
 
-    const verificationResp = await fetch(`${BASE_URL}/verify-registration`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(attResp)
-    });
+    const verificationResp = await fetch(
+      `${BASE_API_URL}/registration/verify-registration`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(attResp)
+      }
+    );
 
     const verificationJSON = await verificationResp.json();
     console.log(
@@ -167,7 +172,9 @@ export const LoginForm: FC = () => {
   };
 
   const auth = async () => {
-    const resp = await fetch(`${BASE_URL}/generate-authentication-options`);
+    const resp = await fetch(
+      `${BASE_API_URL}/auth/generate-authentication-options`
+    );
     let asseResp;
 
     try {
@@ -192,13 +199,16 @@ export const LoginForm: FC = () => {
       return;
     }
 
-    const verificationResp = await fetch(`${BASE_URL}/verify-authentication`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(asseResp)
-    });
+    const verificationResp = await fetch(
+      `${BASE_API_URL}/auth/verify-authentication`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(asseResp)
+      }
+    );
 
     const verificationJSON = await verificationResp.json();
     console.log(
