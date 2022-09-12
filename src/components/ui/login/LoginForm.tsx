@@ -23,8 +23,6 @@ import {
 
 import { WebAuthnModal } from './WebAuthnModal';
 
-const BASE_API_URL = 'http://localhost:3000/api';
-
 type Inputs = {
   email: string;
   password: string;
@@ -136,7 +134,7 @@ export const LoginForm: FC = () => {
     }
 
     const verificationResp = await fetch(
-      `${BASE_API_URL}/registration/verify-registration`,
+      '/api/registration/verify-registration',
       {
         method: 'POST',
         headers: {
@@ -170,9 +168,7 @@ export const LoginForm: FC = () => {
   };
 
   const auth = async () => {
-    const resp = await fetch(
-      `${BASE_API_URL}/auth/generate-authentication-options`
-    );
+    const resp = await fetch('/api/auth/generate-authentication-options');
     let asseResp;
 
     try {
@@ -197,16 +193,13 @@ export const LoginForm: FC = () => {
       return;
     }
 
-    const verificationResp = await fetch(
-      `${BASE_API_URL}/auth/verify-authentication`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(asseResp)
-      }
-    );
+    const verificationResp = await fetch('/api/auth/verify-authentication', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(asseResp)
+    });
 
     const verificationJSON = await verificationResp.json();
     console.log(
