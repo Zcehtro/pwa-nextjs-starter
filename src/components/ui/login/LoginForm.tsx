@@ -89,9 +89,7 @@ export const LoginForm: FC = () => {
   // };
 
   const webauthnRegistration = async () => {
-    const resp = await fetch(
-      `${BASE_API_URL}/registration/generate-registration-options`
-    );
+    const resp = await fetch(`/api/registration/generate-registration-options`);
     //Attestation resp
     let attResp;
 

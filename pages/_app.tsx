@@ -42,7 +42,8 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const [queryClient] = useState(() => new QueryClient());
-  const { locale } = useRouter();
+  //if locale is not defined, use the browser language
+  const { locale, defaultLocale } = useRouter();
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
