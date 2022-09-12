@@ -47,7 +47,8 @@ const getGenerateAuthenticationOptions = async (
    * The server needs to temporarily remember this value for verification, so don't lose it until
    * after you verify an authenticator response.
    */
-  inMemoryUserDeviceDB[loggedInUserId].currentChallenge = options.challenge;
+  inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
+    options.challenge;
 
   return res.status(200).json(options);
 };

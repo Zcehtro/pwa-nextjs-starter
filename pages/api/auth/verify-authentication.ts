@@ -28,7 +28,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-/**
+/**@simplewebauthn/typescript-types
  * Login (a.k.a. "Authentication")
  */
 const postVerifyAuthentication = async (
@@ -46,6 +46,7 @@ const postVerifyAuthentication = async (
   // "Query the DB" here for an authenticator matching `credentialID`
 
   console.log('[DEBUG] user', user);
+  // "Search for the authenticator in the user's list of devices"
   for (const dev of user.devices) {
     if (dev.credentialID.equals(bodyCredIDBuffer)) {
       dbAuthenticator = dev;
@@ -72,6 +73,8 @@ const postVerifyAuthentication = async (
       requireUserVerification: true
     };
     verification = await verifyAuthenticationResponse(opts);
+
+    console.log('[DEBUG] verification', verification);
   } catch (error) {
     const _error = error as Error;
     console.error(_error);
