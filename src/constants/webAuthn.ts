@@ -20,7 +20,7 @@ export const rpID = RP_ID;
 
 export let expectedOrigin = '';
 const port = 3000;
-expectedOrigin = `http://localhost:${port}`;
+expectedOrigin = `https://*:${port}`;
 
 /**
  * 2FA and Passwordless WebAuthn flows expect you to be able to uniquely identify the user that
