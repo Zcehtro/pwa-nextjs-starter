@@ -3,7 +3,7 @@ import type { AuthenticatorDevice } from '@simplewebauthn/typescript-types';
 const {
   ENABLE_CONFORMANCE,
   ENABLE_HTTPS,
-  RP_ID = 'https://pwa-nextjs-starter-git-webauthn-mariavla.vercel.app/'
+  RP_ID = 'pwa-nextjs-starter-git-webauthn-mariavla.vercel.app'
 } = process.env;
 
 interface LoggedInUser {
