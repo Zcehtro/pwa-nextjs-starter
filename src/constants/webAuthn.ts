@@ -20,7 +20,7 @@ export const rpID = RP_ID;
 
 export let expectedOrigin = '';
 const port = 3000;
-expectedOrigin = `https://*:${port}`;
+expectedOrigin = 'https://pwa-nextjs-starter-git-webauthn-mariavla.vercel.app/';
 
 /**
  * 2FA and Passwordless WebAuthn flows expect you to be able to uniquely identify the user that
