@@ -45,8 +45,8 @@ const HomePage: NextPage = () => {
               values={{ b: (chunks) => <b>{chunks}</b> }}
             />
           </Typography>
-          <Link href="/about" color="secondary">
-            Go to the about page
+          <Link href="/login" color="secondary">
+            Go to login
           </Link>
           <Typography variant="body1">
             <FormattedMessage id="page.home.description" />
