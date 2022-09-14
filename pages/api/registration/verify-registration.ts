@@ -40,6 +40,8 @@ const postVerifyRegistration = async (
 ) => {
   const body: RegistrationCredentialJSON = req.body;
 
+  console.log('[DEBUG] inMemoryUserDeviceDB', inMemoryUserDeviceDB);
+
   const user = inMemoryUserDeviceDB[loggedInUserId];
 
   const expectedChallenge = user.currentChallenge;
