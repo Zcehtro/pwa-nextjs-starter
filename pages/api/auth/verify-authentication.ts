@@ -15,6 +15,7 @@ import {
   loggedInUserId,
   rpID
 } from '../../../src/constants/webAuthn';
+import { usersRepo } from '../../../helpers/users';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -37,7 +38,8 @@ const postVerifyAuthentication = async (
 ) => {
   const body: AuthenticationCredentialJSON = req.body;
 
-  const user = inMemoryUserDeviceDB[loggedInUserId];
+  // const user = inMemoryUserDeviceDB[loggedInUserId];
+  const user = usersRepo.find((x: any) => x.id === loggedInUserId);
 
   const expectedChallenge = user.currentChallenge;
 
@@ -45,7 +47,8 @@ const postVerifyAuthentication = async (
   const bodyCredIDBuffer = base64url.toBuffer(body.rawId);
   // "Query the DB" here for an authenticator matching `credentialID`
 
-  console.log('[DEBUG] user', user);
+  console.log('[DEBUG] bodyCredIDBuffer', bodyCredIDBuffer);
+  console.log('[DEBUG] credentialID', user?.devices[0].credentialID);
   // "Search for the authenticator in the user's list of devices"
   for (const dev of user.devices) {
     if (dev.credentialID.equals(bodyCredIDBuffer)) {

@@ -9,6 +9,8 @@ import {
   rpID
 } from '../../../src/constants/webAuthn';
 
+import { usersRepo } from '../../../helpers/users';
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
@@ -28,7 +30,14 @@ const getGenerateRegistrationOptions = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const user = inMemoryUserDeviceDB[loggedInUserId];
+  const user = {
+    id: loggedInUserId,
+    username: `user@${rpID}`,
+    devices: [],
+    currentChallenge: undefined
+  };
+
+  // console.log('[DEBUG] user', user);
 
   const {
     /**
@@ -76,8 +85,16 @@ const getGenerateRegistrationOptions = async (
    * The server needs to temporarily remember this value for verification, so don't lose it until
    * after you verify an authenticator response.
    */
-  inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
-    options.challenge;
+  // inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
+  //   options.challenge;
+
+  user.currentChallenge = options.challenge;
+
+  // if (usersRepo.find((x: any) => x.id === user.id)) {
+  //   throw `User with the username "${user.id}" already exists`;
+  // }
+
+  usersRepo.create(user);
 
   return res.status(200).json(options);
 };

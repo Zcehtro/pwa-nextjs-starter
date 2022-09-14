@@ -8,6 +8,7 @@ import {
   loggedInUserId,
   rpID
 } from '../../../src/constants/webAuthn';
+import { usersRepo } from '../../../helpers/users';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -28,8 +29,11 @@ const getGenerateAuthenticationOptions = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  // You need to know the user by this point
-  const user = inMemoryUserDeviceDB[loggedInUserId];
+  const user = usersRepo.find((x: any) => x.id === loggedInUserId);
+
+  if (!user) {
+    return res.status(400).json({ message: `User not register webauthn` });
+  }
 
   const opts: GenerateAuthenticationOptionsOpts = {
     timeout: 60000,
@@ -47,8 +51,12 @@ const getGenerateAuthenticationOptions = async (
    * The server needs to temporarily remember this value for verification, so don't lose it until
    * after you verify an authenticator response.
    */
-  inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
-    options.challenge;
+  // inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
+  //   options.challenge;
+
+  user.currentChallenge = options.challenge;
+
+  usersRepo.update(loggedInUserId, user);
 
   return res.status(200).json(options);
 };

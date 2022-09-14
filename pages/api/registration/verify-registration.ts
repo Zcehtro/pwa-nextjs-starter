@@ -19,6 +19,8 @@ import {
   rpID
 } from '../../../src/constants/webAuthn';
 
+import { usersRepo } from '../../../helpers/users';
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST':
@@ -40,12 +42,10 @@ const postVerifyRegistration = async (
 ) => {
   const body: RegistrationCredentialJSON = req.body;
 
-  console.log('[DEBUG] inMemoryUserDeviceDB', inMemoryUserDeviceDB);
+  const user = usersRepo.find((x: any) => x.id === loggedInUserId);
 
-  const user = inMemoryUserDeviceDB[loggedInUserId];
-
-  const expectedChallenge = user.currentChallenge;
-  console.log('[DEBUG] user', user);
+  const expectedChallenge = user?.currentChallenge;
+  // console.log('[DEBUG] user', user);
 
   let verification: VerifiedRegistrationResponse;
   try {
@@ -56,7 +56,7 @@ const postVerifyRegistration = async (
       expectedRPID: rpID,
       requireUserVerification: true
     };
-    console.log('[DEBUG] expectedOrigin', expectedOrigin);
+    // console.log('[DEBUG] expectedOrigin', expectedOrigin);
 
     verification = await verifyRegistrationResponse(opts);
   } catch (error) {
@@ -84,7 +84,9 @@ const postVerifyRegistration = async (
         counter,
         transports: body.transports
       };
+
       user.devices.push(newDevice);
+      usersRepo.update(loggedInUserId, user);
     }
   }
 

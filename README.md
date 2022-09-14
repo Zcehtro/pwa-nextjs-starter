@@ -131,3 +131,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   <!-- "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"], -->
 
   <!-- ifconfig -> 192.168.0.162:3000 -->
+
+  <!-- {
+    "id": "internalUserId",
+    "username": "user@${rpID}",
+    "devices": [],
+    "currentChallenge": "undefined"
+  } -->
