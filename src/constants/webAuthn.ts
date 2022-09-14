@@ -3,8 +3,8 @@ import type { AuthenticatorDevice } from '@simplewebauthn/typescript-types';
 const {
   ENABLE_CONFORMANCE,
   ENABLE_HTTPS,
-  // RP_ID = 'pwa-nextjs-starter-git-webauthn-mariavla.vercel.app'
-  RP_ID = 'localhost'
+  RP_ID = 'pwa-nextjs-starter-git-webauthn-mariavla.vercel.app'
+  // RP_ID = 'localhost'
 } = process.env;
 
 interface LoggedInUser {
@@ -25,8 +25,8 @@ export const rpID = RP_ID;
 
 export let expectedOrigin = '';
 const port = 3000;
-// expectedOrigin = `https://pwa-nextjs-starter-git-webauthn-mariavla.vercel.app`;
-expectedOrigin = `http://localhost:${port}`;
+expectedOrigin = `https://pwa-nextjs-starter-git-webauthn-mariavla.vercel.app`;
+// expectedOrigin = `http://localhost:${port}`;
 
 /**
  * 2FA and Passwordless WebAuthn flows expect you to be able to uniquely identify the user that
