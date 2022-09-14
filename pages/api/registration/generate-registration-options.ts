@@ -3,13 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { generateRegistrationOptions } from '@simplewebauthn/server';
 import type { GenerateRegistrationOptionsOpts } from '@simplewebauthn/server';
 
-import {
-  inMemoryUserDeviceDB,
-  loggedInUserId,
-  rpID
-} from '../../../src/constants/webAuthn';
-
 import { usersRepo } from '../../../helpers/users';
+import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
