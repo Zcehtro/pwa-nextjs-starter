@@ -3,7 +3,7 @@ import type { AuthenticatorDevice } from '@simplewebauthn/typescript-types';
 const {
   ENABLE_CONFORMANCE,
   ENABLE_HTTPS,
-  RP_ID = 'pwa-nextjs-starter-git-webauthn-mariavla.vercel.app'
+  RP_ID = 'pwa-nextjs-starter.vercel.app/'
   // RP_ID = 'localhost'
 } = process.env;
 
@@ -25,7 +25,7 @@ export const rpID = RP_ID;
 
 export let expectedOrigin = '';
 const port = 3000;
-expectedOrigin = `https://pwa-nextjs-starter-git-webauthn-mariavla.vercel.app`;
+expectedOrigin = `https://pwa-nextjs-starter.vercel.app/`;
 // expectedOrigin = `http://localhost:${port}`;
 
 /**
