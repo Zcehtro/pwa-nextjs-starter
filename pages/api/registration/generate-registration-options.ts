@@ -30,6 +30,9 @@ const getGenerateRegistrationOptions = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
+  // Delete DB, user not persisted. Not production ready.
+  usersRepo.delete(loggedInUserId);
+
   const user = {
     id: loggedInUserId,
     username: `user@${rpID}`,

@@ -47,12 +47,29 @@ const postVerifyAuthentication = async (
   const bodyCredIDBuffer = base64url.toBuffer(body.rawId);
   // "Query the DB" here for an authenticator matching `credentialID`
 
+  console.log('========================');
+
   console.log('[DEBUG] bodyCredIDBuffer', bodyCredIDBuffer);
-  console.log('[DEBUG] credentialID', user?.devices[0].credentialID);
+  // console.log('[DEBUG] credentialID', user?.devices[0].credentialID.data);
+
+  // console.log('----');
+  // var buf = Buffer.from(JSON.stringify(user?.devices[0].credentialID));
+  // const buffer = Buffer.from(user?.devices[0].credentialID.data);
+  // console.log('[DEBUG] bodyCredIDBuffer-buffer', buffer);
+  // console.log('[DEBUG] credentialID-buf', buf);
+
+  // console.log('========================');
+
   // "Search for the authenticator in the user's list of devices"
-  for (const dev of user.devices) {
-    if (dev.credentialID.equals(bodyCredIDBuffer)) {
-      dbAuthenticator = dev;
+  for (const device of user.devices) {
+    const buffer = Buffer.from(device.credentialID.data);
+    if (buffer.equals(bodyCredIDBuffer)) {
+      dbAuthenticator = {
+        credentialPublicKey: Buffer.from(device.credentialPublicKey),
+        credentialID: Buffer.from(device.credentialID),
+        counter: device.counter,
+        transports: device.transports
+      };
       break;
     }
   }

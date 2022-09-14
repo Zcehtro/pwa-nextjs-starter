@@ -8,8 +8,8 @@ export const usersRepo = {
   getById: (id) => users.find((x) => x.id.toString() === id.toString()),
   find: (x) => users.find(x),
   create,
-  update
-  // delete: _delete
+  update,
+  delete: _delete
 };
 
 function create(user) {
@@ -36,12 +36,12 @@ function update(id, params) {
   saveData();
 }
 
-// // prefixed with underscore '_' because 'delete' is a reserved word in javascript
-// function _delete(id) {
-//   // filter out deleted user and save
-//   users = users.filter((x) => x.id.toString() !== id.toString());
-//   saveData();
-// }
+// prefixed with underscore '_' because 'delete' is a reserved word in javascript
+function _delete(id) {
+  // filter out deleted user and save
+  users = users.filter((x) => x.id !== id);
+  saveData();
+}
 
 // private helper functions
 
