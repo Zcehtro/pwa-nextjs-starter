@@ -75,6 +75,7 @@ const getGenerateRegistrationOptions = async (
      */
     authenticatorSelection: {
       userVerification: 'required',
+      // residentKey: 'preferred', to work on android, why??
       residentKey: 'required'
     },
     /**
