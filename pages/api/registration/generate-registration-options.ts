@@ -31,7 +31,7 @@ const getGenerateRegistrationOptions = async (
   } catch (error) {
     return res
       .status(500)
-      .json({ message: 'Error deleting the previous database' });
+      .json({ message: 'Error deleting the previous database', error });
   }
 
   const user = {
