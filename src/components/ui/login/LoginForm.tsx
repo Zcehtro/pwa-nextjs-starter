@@ -168,6 +168,7 @@ export const LoginForm: FC = () => {
   };
 
   const auth = async () => {
+    // todo: send username? id?
     const resp = await fetch('/api/auth/generate-authentication-options');
     let asseResp;
 

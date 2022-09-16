@@ -26,7 +26,13 @@ const getGenerateRegistrationOptions = async (
   res: NextApiResponse
 ) => {
   // Delete DB, user not persisted. Not production ready.
-  usersRepo.delete(loggedInUserId);
+  try {
+    usersRepo.delete(loggedInUserId);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error deleting the previous database' });
+  }
 
   const user = {
     id: loggedInUserId,
