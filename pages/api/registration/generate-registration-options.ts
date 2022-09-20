@@ -3,11 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { generateRegistrationOptions } from '@simplewebauthn/server';
 import type { GenerateRegistrationOptionsOpts } from '@simplewebauthn/server';
 
-import {
-  inMemoryUserDeviceDB,
-  loggedInUserId,
-  rpID
-} from '../../../src/constants/webAuthn';
+import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
 
 import { usersRepo } from '../../../helpers/users';
 

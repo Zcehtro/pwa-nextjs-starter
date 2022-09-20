@@ -11,7 +11,6 @@ import type { AuthenticationCredentialJSON } from '@simplewebauthn/typescript-ty
 
 import {
   expectedOrigin,
-  inMemoryUserDeviceDB,
   loggedInUserId,
   rpID
 } from '../../../src/constants/webAuthn';

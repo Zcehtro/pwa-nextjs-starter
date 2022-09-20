@@ -14,7 +14,6 @@ import type {
 
 import {
   expectedOrigin,
-  inMemoryUserDeviceDB,
   loggedInUserId,
   rpID
 } from '../../../src/constants/webAuthn';

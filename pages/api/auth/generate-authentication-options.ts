@@ -3,11 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { generateAuthenticationOptions } from '@simplewebauthn/server';
 import type { GenerateAuthenticationOptionsOpts } from '@simplewebauthn/server';
 
-import {
-  inMemoryUserDeviceDB,
-  loggedInUserId,
-  rpID
-} from '../../../src/constants/webAuthn';
+import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
 import { usersRepo } from '../../../helpers/users';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
