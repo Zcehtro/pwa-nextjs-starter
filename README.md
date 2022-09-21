@@ -14,7 +14,11 @@ https://pwa-nextjs-starter-kvuocxrq2-mariavla.vercel.app/login
 - Make login functional
 - React Query post example
 - Complete i18n
-- WebAuthn not working so far. Needs database?
+- WebAuthn.
+  - [x] Replace JSON db for MongoDB
+  - [ ] Multiple users (replace `loggedInUserId`)
+  - [ ] Multiple devices per user
+  - [ ] Deploy to Vercel and connect to MongoDB in Mongo Atlas (or other)
 
 Clone the repo and run:
 
