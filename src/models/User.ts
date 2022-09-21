@@ -6,7 +6,7 @@ const userSchema = new Schema(
     id: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true },
     currentChallenge: { type: String, required: true },
-    devices: [{ type: String }]
+    devices: { type: Array, default: [] }
   },
   {
     timestamps: true
