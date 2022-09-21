@@ -15,6 +15,7 @@ import {
   rpID
 } from '../../../src/constants/webAuthn';
 import { usersRepo } from '../../../helpers/users';
+import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -37,19 +38,39 @@ const postVerifyAuthentication = async (
 ) => {
   const body: AuthenticationCredentialJSON = req.body;
 
-  // const user = inMemoryUserDeviceDB[loggedInUserId];
-  const user = usersRepo.find((x: any) => x.id === loggedInUserId);
+  // TODO majo: get loggedInUserId from POST body
 
-  const expectedChallenge = user.currentChallenge;
+  // const user = inMemoryUserDeviceDB[loggedInUserId];
+  const user = usersRepo.find((x: any) => x.id === loggedInUserId); // json db
+
+  // Get user from Mongo DB
+  const userFromDB = await dbUsers.getUserById(loggedInUserId);
+
+  const expectedChallenge = userFromDB.currentChallenge;
 
   let dbAuthenticator;
+  let dbAuthenticatorTwo;
   const bodyCredIDBuffer = base64url.toBuffer(body.rawId);
   // "Query the DB" here for an authenticator matching `credentialID`
 
   console.log('========================');
 
   console.log('[DEBUG] bodyCredIDBuffer', bodyCredIDBuffer);
-  // console.log('[DEBUG] credentialID', user?.devices[0].credentialID.data);
+  console.log('[DEBUG] body.rawId', body.rawId);
+  console.log('[DEBUG] credentialID', userFromDB.devices[0].credentialID);
+  console.log(
+    '[DEBUG] credentialID',
+    JSON.parse(
+      JSON.stringify(base64url.toBuffer(userFromDB.devices[0].credentialID))
+    )
+  );
+
+  const credentialIDbuffer = Buffer.from(
+    JSON.parse(
+      JSON.stringify(base64url.toBuffer(userFromDB.devices[0].credentialID))
+    ).data
+  );
+  console.log('[DEBUG] credentialIDbuffer', credentialIDbuffer);
 
   // console.log('----');
   // var buf = Buffer.from(JSON.stringify(user?.devices[0].credentialID));
@@ -57,15 +78,17 @@ const postVerifyAuthentication = async (
   // console.log('[DEBUG] bodyCredIDBuffer-buffer', buffer);
   // console.log('[DEBUG] credentialID-buf', buf);
 
-  // console.log('========================');
+  console.log('========================');
 
   // "Search for the authenticator in the user's list of devices"
-  for (const device of user.devices) {
-    const buffer = Buffer.from(device.credentialID.data);
+  for (const device of userFromDB.devices) {
+    const buffer = Buffer.from(
+      JSON.parse(JSON.stringify(base64url.toBuffer(device.credentialID))).data
+    );
     if (buffer.equals(bodyCredIDBuffer)) {
       dbAuthenticator = {
-        credentialPublicKey: Buffer.from(device.credentialPublicKey),
-        credentialID: Buffer.from(device.credentialID),
+        credentialPublicKey: base64url.toBuffer(device.credentialPublicKey),
+        credentialID: base64url.toBuffer(device.credentialID),
         counter: device.counter,
         transports: device.transports
       };
@@ -73,7 +96,7 @@ const postVerifyAuthentication = async (
     }
   }
 
-  console.log('[DEBUG] dbAuthenticator', dbAuthenticator);
+  // console.log('[DEBUG] dbAuthenticator', dbAuthenticator);
 
   if (!dbAuthenticator) {
     return res
@@ -93,7 +116,7 @@ const postVerifyAuthentication = async (
     };
     verification = await verifyAuthenticationResponse(opts);
 
-    console.log('[DEBUG] verification', verification);
+    // console.log('[DEBUG] verification', verification);
   } catch (error) {
     const _error = error as Error;
     console.error(_error);

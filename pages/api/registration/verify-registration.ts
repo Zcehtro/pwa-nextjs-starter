@@ -91,13 +91,13 @@ const postVerifyRegistration = async (
         transports: body.transports
       };
 
-      user.devices.push(newDevice);
-      userFromDB.devices.push(newDevice);
+      user.devices.push(newDevice); // json db
+      userFromDB.devices.push(newDevice); // mongo db
 
       usersRepo.update(loggedInUserId, user); // json db
 
       // Mongodb
-      await dbUsers.updateUser(userFromDB);
+      await dbUsers.updateUserDevices(userFromDB);
     }
   }
 
