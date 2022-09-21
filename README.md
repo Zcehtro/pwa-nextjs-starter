@@ -52,6 +52,28 @@ More information [in the documentation](https://mui.com/material-ui/guides/routi
 
 - yarn -v → 1.22.17
 
+# Database
+
+To run locally the project we need to run Docker with Mongo image to have our database:
+
+```
+docker-compose up -d
+```
+
+- -d, means **detached**
+
+## Configure environment variables
+
+Rename file **.env.template** to **.env**
+
+- MongoDB URL Local:
+
+```
+MONGO_URL=mongodb://localhost:27017/webauthndb
+```
+
+You can also use Mongo Compass and connect with MONGO_URL.
+
 ## To run JSON server locally (our mock database) - Or use https://my-fake-json-server.herokuapp.com if working
 
 `$ yarn serve-json`
