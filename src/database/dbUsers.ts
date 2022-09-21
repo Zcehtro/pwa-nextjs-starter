@@ -65,12 +65,3 @@ export const updateUserChallenge = async (
     return { message: error };
   }
 };
-
-// ----
-export const getAllProducts = async (): Promise<any> => {
-  await db.connect();
-  const users = await User.find().lean();
-  await db.disconnect();
-
-  return JSON.parse(JSON.stringify(users));
-};
