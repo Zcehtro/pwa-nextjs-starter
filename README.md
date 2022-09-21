@@ -56,6 +56,8 @@ More information [in the documentation](https://mui.com/material-ui/guides/routi
 
 - yarn -v → 1.22.17
 
+- Docker
+
 # Database
 
 To run locally the project we need to run Docker with Mongo image to have our database:
