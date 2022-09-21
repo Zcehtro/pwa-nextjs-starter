@@ -87,14 +87,23 @@ export const LoginForm: FC = () => {
   // };
 
   const webauthnRegistration = async () => {
-    const resp = await fetch(`/api/registration/generate-registration-options`);
-    //Attestation resp
-    let attResp;
-
     try {
-      const opts = await resp.json();
-      console.log('[DEBUG] generate-registration-options', opts);
+      const resp = await fetch(
+        `/api/registration/generate-registration-options`
+      );
+      //Attestation resp
+      let attResp;
 
+      const opts = await resp.json();
+      console.log('[DEBUG] generate-registration-options', opts.errorType);
+
+      if (opts.errorType === 'USERNAME_ALREADY_EXITS') {
+        setWebAuthnMessage({
+          status: true,
+          message: opts.message
+        });
+        return;
+      }
       //Resident key is set to required
       opts.authenticatorSelection.residentKey = 'required';
       opts.authenticatorSelection.requireResidentKey = true;

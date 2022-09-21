@@ -14,8 +14,6 @@ export const getUserById = async (id: string): Promise<any> => {
 };
 
 export const addUser = async (user: any): Promise<any> => {
-  console.log('[DEBUG][SERVER] addUser', user);
-
   await db.connect();
   const userRes = await User.create(user);
   await db.disconnect();

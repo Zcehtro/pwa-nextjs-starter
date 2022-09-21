@@ -5,7 +5,6 @@ import type { GenerateRegistrationOptionsOpts } from '@simplewebauthn/server';
 
 import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
 
-import { usersRepo } from '../../../helpers/users';
 import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -27,18 +26,14 @@ const getGenerateRegistrationOptions = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  // Delete DB from json, user not persisted. Not production ready.
-  usersRepo.delete(loggedInUserId);
-
   // TODO majo: get loggedInUserId from POST request
+
   const user = {
     id: loggedInUserId,
     username: `user@${rpID}`,
     devices: [],
     currentChallenge: undefined
   };
-
-  // console.log('[DEBUG] user', user);
 
   const {
     /**
@@ -86,24 +81,24 @@ const getGenerateRegistrationOptions = async (
    * The server needs to temporarily remember this value for verification, so don't lose it until
    * after you verify an authenticator response.
    */
-  // inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
-  //   options.challenge;
 
   user.currentChallenge = options.challenge;
 
-  // if (usersRepo.find((x: any) => x.id === user.id)) {
-  //   throw `User with the username "${user.id}" already exists`;
-  // }
+  const userFromDB = await dbUsers.getUserById(loggedInUserId);
+  if (userFromDB) {
+    return res.status(400).json({
+      errorType: 'USERNAME_ALREADY_EXITS',
+      message: `User with the username "${user.id}" already exists`
+    });
+  } else {
+    // save to Mongo db
+    await dbUsers.addUser({
+      id: user.id,
+      username: user.username,
+      device: user.devices,
+      currentChallenge: user.currentChallenge
+    });
 
-  usersRepo.create(user); // save to json db
-
-  // save to Mongo db
-  await dbUsers.addUser({
-    id: user.id,
-    username: user.username,
-    device: user.devices,
-    currentChallenge: user.currentChallenge
-  });
-
-  return res.status(200).json(options);
+    return res.status(200).json(options);
+  }
 };

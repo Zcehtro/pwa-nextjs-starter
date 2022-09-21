@@ -14,7 +14,7 @@ import {
   loggedInUserId,
   rpID
 } from '../../../src/constants/webAuthn';
-import { usersRepo } from '../../../helpers/users';
+
 import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -40,45 +40,13 @@ const postVerifyAuthentication = async (
 
   // TODO majo: get loggedInUserId from POST body
 
-  // const user = inMemoryUserDeviceDB[loggedInUserId];
-  const user = usersRepo.find((x: any) => x.id === loggedInUserId); // json db
-
   // Get user from Mongo DB
   const userFromDB = await dbUsers.getUserById(loggedInUserId);
 
   const expectedChallenge = userFromDB.currentChallenge;
 
   let dbAuthenticator;
-  let dbAuthenticatorTwo;
   const bodyCredIDBuffer = base64url.toBuffer(body.rawId);
-  // "Query the DB" here for an authenticator matching `credentialID`
-
-  console.log('========================');
-
-  console.log('[DEBUG] bodyCredIDBuffer', bodyCredIDBuffer);
-  console.log('[DEBUG] body.rawId', body.rawId);
-  console.log('[DEBUG] credentialID', userFromDB.devices[0].credentialID);
-  console.log(
-    '[DEBUG] credentialID',
-    JSON.parse(
-      JSON.stringify(base64url.toBuffer(userFromDB.devices[0].credentialID))
-    )
-  );
-
-  const credentialIDbuffer = Buffer.from(
-    JSON.parse(
-      JSON.stringify(base64url.toBuffer(userFromDB.devices[0].credentialID))
-    ).data
-  );
-  console.log('[DEBUG] credentialIDbuffer', credentialIDbuffer);
-
-  // console.log('----');
-  // var buf = Buffer.from(JSON.stringify(user?.devices[0].credentialID));
-  // const buffer = Buffer.from(user?.devices[0].credentialID.data);
-  // console.log('[DEBUG] bodyCredIDBuffer-buffer', buffer);
-  // console.log('[DEBUG] credentialID-buf', buf);
-
-  console.log('========================');
 
   // "Search for the authenticator in the user's list of devices"
   for (const device of userFromDB.devices) {
@@ -95,8 +63,6 @@ const postVerifyAuthentication = async (
       break;
     }
   }
-
-  // console.log('[DEBUG] dbAuthenticator', dbAuthenticator);
 
   if (!dbAuthenticator) {
     return res

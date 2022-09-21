@@ -4,7 +4,6 @@ import { generateAuthenticationOptions } from '@simplewebauthn/server';
 import type { GenerateAuthenticationOptionsOpts } from '@simplewebauthn/server';
 
 import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
-import { usersRepo } from '../../../helpers/users';
 import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -27,7 +26,6 @@ const getGenerateAuthenticationOptions = async (
   res: NextApiResponse
 ) => {
   // TODO majo: get loggedInUserId from POST request
-  const user = usersRepo.find((x: any) => x.id === loggedInUserId); // json db
 
   // Get user from Mongo DB
   const userFromDB = await dbUsers.getUserById(loggedInUserId);
@@ -53,11 +51,6 @@ const getGenerateAuthenticationOptions = async (
    * The server needs to temporarily remember this value for verification, so don't lose it until
    * after you verify an authenticator response.
    */
-  // inMemoryUserDeviceDB[loggedInUserId.toString()].currentChallenge =
-  //   options.challenge;
-
-  user.currentChallenge = options.challenge; // json db
-  usersRepo.update(loggedInUserId, user); // json db
 
   // Mongodb
   await dbUsers.updateUserChallenge(userFromDB, options.challenge); // mongo

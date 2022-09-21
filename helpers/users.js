@@ -1,3 +1,4 @@
+// DEPRECATED (we use mongoDB now)
 const fs = require('fs');
 
 // users in JSON file for simplicity, store in a db for production applications

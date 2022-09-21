@@ -18,7 +18,6 @@ import {
   rpID
 } from '../../../src/constants/webAuthn';
 
-import { usersRepo } from '../../../helpers/users';
 import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -42,16 +41,12 @@ const postVerifyRegistration = async (
 ) => {
   const body: RegistrationCredentialJSON = req.body;
 
-  const user = usersRepo.find((x: any) => x.id === loggedInUserId); // get user fron json db
+  // TODO majo: get loggedInUserId
 
   // Get user from Mongo DB
   const userFromDB = await dbUsers.getUserById(loggedInUserId);
 
-  // console.log('[VERIFY-REGI] user', user.currentChallenge);
-  // console.log('[VERIFY-REGI] userFromDB', userFromDB.currentChallenge);
-
   const expectedChallenge = userFromDB?.currentChallenge;
-  // console.log('[DEBUG] user', user);
 
   let verification: VerifiedRegistrationResponse;
   try {
@@ -62,7 +57,6 @@ const postVerifyRegistration = async (
       expectedRPID: rpID,
       requireUserVerification: true
     };
-    // console.log('[DEBUG] expectedOrigin', expectedOrigin);
 
     verification = await verifyRegistrationResponse(opts);
   } catch (error) {
@@ -91,10 +85,7 @@ const postVerifyRegistration = async (
         transports: body.transports
       };
 
-      user.devices.push(newDevice); // json db
       userFromDB.devices.push(newDevice); // mongo db
-
-      usersRepo.update(loggedInUserId, user); // json db
 
       // Mongodb
       await dbUsers.updateUserDevices(userFromDB);
