@@ -43,7 +43,6 @@ const postVerifyRegistration = async (
 
   // TODO majo: get loggedInUserId
 
-  // Get user from Mongo DB
   const userFromDB = await dbUsers.getUserById(loggedInUserId);
 
   const expectedChallenge = userFromDB?.currentChallenge;
@@ -85,9 +84,8 @@ const postVerifyRegistration = async (
         transports: body.transports
       };
 
-      userFromDB.devices.push(newDevice); // mongo db
+      userFromDB.devices.push(newDevice);
 
-      // Mongodb
       await dbUsers.updateUserDevices(userFromDB);
     }
   }

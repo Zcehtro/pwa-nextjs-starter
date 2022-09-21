@@ -27,7 +27,6 @@ const getGenerateAuthenticationOptions = async (
 ) => {
   // TODO majo: get loggedInUserId from POST request
 
-  // Get user from Mongo DB
   const userFromDB = await dbUsers.getUserById(loggedInUserId);
 
   if (!userFromDB) {
@@ -52,8 +51,7 @@ const getGenerateAuthenticationOptions = async (
    * after you verify an authenticator response.
    */
 
-  // Mongodb
-  await dbUsers.updateUserChallenge(userFromDB, options.challenge); // mongo
+  await dbUsers.updateUserChallenge(userFromDB, options.challenge);
 
   return res.status(200).json(options);
 };

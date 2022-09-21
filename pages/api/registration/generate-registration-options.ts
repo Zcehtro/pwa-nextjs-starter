@@ -91,7 +91,6 @@ const getGenerateRegistrationOptions = async (
       message: `User with the username "${user.id}" already exists`
     });
   } else {
-    // save to Mongo db
     await dbUsers.addUser({
       id: user.id,
       username: user.username,

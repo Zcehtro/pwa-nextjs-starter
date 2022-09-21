@@ -40,7 +40,6 @@ const postVerifyAuthentication = async (
 
   // TODO majo: get loggedInUserId from POST body
 
-  // Get user from Mongo DB
   const userFromDB = await dbUsers.getUserById(loggedInUserId);
 
   const expectedChallenge = userFromDB.currentChallenge;
@@ -81,8 +80,6 @@ const postVerifyAuthentication = async (
       requireUserVerification: true
     };
     verification = await verifyAuthenticationResponse(opts);
-
-    // console.log('[DEBUG] verification', verification);
   } catch (error) {
     const _error = error as Error;
     console.error(_error);
