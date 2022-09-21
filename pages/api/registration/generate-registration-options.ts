@@ -6,6 +6,7 @@ import type { GenerateRegistrationOptionsOpts } from '@simplewebauthn/server';
 import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
 
 import { usersRepo } from '../../../helpers/users';
+import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -26,9 +27,10 @@ const getGenerateRegistrationOptions = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  // Delete DB, user not persisted. Not production ready.
+  // Delete DB from json, user not persisted. Not production ready.
   usersRepo.delete(loggedInUserId);
 
+  // TODO majo: get loggedInUserId from POST request
   const user = {
     id: loggedInUserId,
     username: `user@${rpID}`,
@@ -93,7 +95,15 @@ const getGenerateRegistrationOptions = async (
   //   throw `User with the username "${user.id}" already exists`;
   // }
 
-  usersRepo.create(user);
+  usersRepo.create(user); // save to json db
+
+  // save to Mongo db
+  await dbUsers.addUser({
+    id: user.id,
+    username: user.username,
+    device: user.devices,
+    currentChallenge: user.currentChallenge
+  });
 
   return res.status(200).json(options);
 };

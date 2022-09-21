@@ -48,3 +48,7 @@ build
 coverage
 
 .vscode/
+
+mongo/
+
+.env
