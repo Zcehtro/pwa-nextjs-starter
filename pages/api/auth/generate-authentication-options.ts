@@ -3,7 +3,12 @@ import base64url from 'base64url';
 import { generateAuthenticationOptions } from '@simplewebauthn/server';
 import type { GenerateAuthenticationOptionsOpts } from '@simplewebauthn/server';
 
-import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
+import {
+  loggedInUserId,
+  rpID
+} from '../../../src/constants/webAuthn';
+import type { LoggedInUser } from '../../../src/constants/webAuthn';
+
 import { dbUsers } from '../../../src/database';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -27,7 +32,7 @@ const getGenerateAuthenticationOptions = async (
 ) => {
   // TODO majo: get loggedInUserId from POST request
 
-  const userFromDB = await dbUsers.getUserById(loggedInUserId);
+  const userFromDB: LoggedInUser = await dbUsers.getUserById(loggedInUserId);
 
   if (!userFromDB) {
     return res.status(400).json({ message: `User not register webauthn` });
@@ -36,7 +41,9 @@ const getGenerateAuthenticationOptions = async (
   const opts: GenerateAuthenticationOptionsOpts = {
     timeout: 60000,
     allowCredentials: userFromDB.devices.map((dev) => ({
-      id: JSON.parse(JSON.stringify(base64url.toBuffer(dev.credentialID))),
+      id: JSON.parse(
+        JSON.stringify(base64url.toBuffer(dev.credentialID.toString()))
+      ),
       type: 'public-key',
       transports: dev.transports
     })),

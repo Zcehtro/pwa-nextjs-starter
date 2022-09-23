@@ -7,7 +7,7 @@ const {
   RP_ID = 'localhost'
 } = process.env;
 
-interface LoggedInUser {
+export interface LoggedInUser {
   id: string;
   username: string;
   devices: AuthenticatorDevice[];

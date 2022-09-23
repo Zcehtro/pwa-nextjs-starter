@@ -4,6 +4,7 @@ import { generateRegistrationOptions } from '@simplewebauthn/server';
 import type { GenerateRegistrationOptionsOpts } from '@simplewebauthn/server';
 
 import { loggedInUserId, rpID } from '../../../src/constants/webAuthn';
+import type { LoggedInUser } from '../../../src/constants/webAuthn';
 
 import { dbUsers } from '../../../src/database';
 
@@ -28,7 +29,7 @@ const getGenerateRegistrationOptions = async (
 ) => {
   // TODO majo: get loggedInUserId from POST request
 
-  const user = {
+  const user: LoggedInUser = {
     id: loggedInUserId,
     username: `user@${rpID}`,
     devices: [],

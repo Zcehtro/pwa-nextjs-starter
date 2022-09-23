@@ -17,6 +17,7 @@ import {
   loggedInUserId,
   rpID
 } from '../../../src/constants/webAuthn';
+import type { LoggedInUser } from '../../../src/constants/webAuthn';
 
 import { dbUsers } from '../../../src/database';
 
@@ -43,7 +44,7 @@ const postVerifyRegistration = async (
 
   // TODO majo: get loggedInUserId
 
-  const userFromDB = await dbUsers.getUserById(loggedInUserId);
+  const userFromDB: LoggedInUser = await dbUsers.getUserById(loggedInUserId);
 
   const expectedChallenge = userFromDB?.currentChallenge;
 

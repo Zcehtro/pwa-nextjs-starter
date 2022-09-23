@@ -1,11 +1,9 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import axios from 'axios';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import {
-  platformAuthenticatorIsAvailable,
   browserSupportsWebAuthn,
   startAuthentication,
   startRegistration
@@ -29,7 +27,7 @@ type Inputs = {
 };
 
 export const LoginForm: FC = () => {
-  const [webAuthnModal, setWebAuthnModal] = useState(false);
+  const [webAuthnModal] = useState(false);
   const [webAuthnMessage, setWebAuthnMessage] = useState({
     status: false,
     message: ''
@@ -37,7 +35,6 @@ export const LoginForm: FC = () => {
 
   const {
     register,
-    handleSubmit,
     formState: { errors }
   } = useForm<Inputs>();
 
@@ -49,50 +46,14 @@ export const LoginForm: FC = () => {
     clear();
   }, []);
 
-  // const onSubmit: SubmitHandler<Inputs> = async (data) => {
-  //   const { email, password } = data;
-
-  //   try {
-  //     const res = await axios.post(
-  //       'https://pwa-chase-api.vercel.app/api/signin',
-  //       {
-  //         email,
-  //         password
-  //       }
-  //     );
-
-  //     const user = res.data.user;
-
-  //     const webAuthnAvailable = await platformAuthenticatorIsAvailable();
-
-  //     // loginUser(
-  //     //   user._id,
-  //     //   user.name,
-  //     //   user.surname,
-  //     //   user.email,
-  //     //   user.password,
-  //     //   user.publicKey,
-  //     //   true,
-  //     //   user.webAuthnEnabled
-  //     // );
-
-  //     if (!user.webAuthnEnabled && webAuthnAvailable) {
-  //       setWebAuthnModal(true);
-  //     }
-
-  //     //if is webauthn enabled
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const webauthnRegistration = async () => {
+    let attResp;
+
     try {
       const resp = await fetch(
         `/api/registration/generate-registration-options`
       );
       //Attestation resp
-      let attResp;
 
       const opts = await resp.json();
       console.log('[DEBUG] generate-registration-options', opts.errorType);
